@@ -1,0 +1,24 @@
+.tracks {
+  width: calc(100% + 42px);
+  margin: 0 0 0 -42px;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.track:hover {
+  opacity: 0.6;
+}
+
+.image {
+  width: 40px;
+  padding: 0;
+}
+
+.song {
+  width: 55%;
+}
+
+.time {
+  width: 60px;
+  text-align: right;
+}

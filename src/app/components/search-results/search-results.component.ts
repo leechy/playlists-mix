@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlaylistsService } from '@core/playlists.service';
 import { Subscription } from 'rxjs';
+import { truncate } from 'fs';
 
 @Component({
   selector: 'app-search-results',
@@ -15,11 +16,14 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
   // subscriptions
   paramsSubscription: Subscription;
-  currentSearchSubscription: Subscription;
+  playlistsDataSubscription: Subscription;
 
   // results
   headers = {};
   results = [];
+  // state of the playlists (opened, loading, tracks, etc)
+  // something we can put in the store in the future
+  playlistsState = {};
 
   constructor(
     private router: Router,
@@ -28,21 +32,36 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    // subscribe to the changes in the route params
     this.paramsSubscription = this.route.params.subscribe(params => {
       // get search params
       this.t = params.t;
       this.lucky = params.lucky && params.lucky !== '';
-
+      // get results
       this.getResults();
+    });
+
+    // listen to the data subject to get tracks results
+    this.playlistsDataSubscription = this.playlistsService.data.subscribe(playlists => {
+      Object.keys(this.playlistsState)
+        .filter(key => this.playlistsState[key].loading)
+        .forEach(key => {
+          if (playlists[key]) {
+            this.playlistsState[key] = {
+              ...this.playlistsState[key],
+              loading: false,
+              headers: playlists[key].headers,
+              data: playlists[key].data
+            };
+            console.log('playlist', key, playlists[key]);
+          }
+        });
     });
   }
 
   ngOnDestroy() {
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
-    }
-    if (this.currentSearchSubscription) {
-      this.currentSearchSubscription.unsubscribe();
     }
   }
 
@@ -71,16 +90,45 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
    * Works with current search request
    */
   getResults() {
-    this.currentSearchSubscription = this.playlistsService.search(this.t).subscribe(data => {
+    const searchSubscription = this.playlistsService.search(this.t).subscribe(data => {
       console.log('searchPlaylists', data);
       this.headers = data['headers'];
       this.results = data['results'];
-      this.currentSearchSubscription.unsubscribe();
+      searchSubscription.unsubscribe();
 
       if (this.lucky) {
         // TODO: if user thinks he's lucky, then choose randomly playlist and start it!
         //       clear the lucky flag afterwards
       }
     });
+  }
+
+  showPlaylist(id) {
+    let loading = false;
+    if (!this.playlistsState[id] || !this.playlistsState[id].data) {
+      this.playlistsService.getTracks(id);
+      loading = true;
+    }
+    this.playlistsState[id] = {
+      ...this.playlistsState[id],
+      opened: true,
+      loading
+    };
+    // console.log('getPlaylist', id, data);
+  }
+
+  hidePlaylist(id) {
+    this.playlistsState[id] = {
+      ...this.playlistsState[id],
+      opened: false
+    };
+  }
+
+  togglePlaylist(id) {
+    if (this.playlistsState[id] && this.playlistsState[id].opened) {
+      this.hidePlaylist(id);
+    } else {
+      this.showPlaylist(id);
+    }
   }
 }

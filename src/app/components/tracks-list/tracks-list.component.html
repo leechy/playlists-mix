@@ -1,0 +1,23 @@
+<div class="playlist" *ngIf="state && state.opened">
+  <!-- loading -->
+  <div class="loading" *ngIf="state.loading">loading...</div>
+  <!-- error loading -->
+  <ng-container *ngIf="!state.loading && !state.data">
+    <div class="no-results" *ngIf="state.headers.status === 'success'">
+      We're sorry, but it seems this playlist is empty.
+    </div>
+    <div class="error" *ngIf="state.headers.status === 'failed'">
+      {{ state.headers.error_message }}
+      You can <span class="link" (click)="retry()">try Again</span>.
+    </div>
+  </ng-container>
+  <!-- tracks -->
+  <table class="tracks" *ngIf="!state.loading && state.data">
+    <tr class="track" *ngFor="let track of state.data.tracks">
+      <td class="image"><img [src]="track.image" width="32" height="32"></td>
+      <td class="song">{{ track.name }}</td>
+      <td class="artist">{{ track.artist_name }}</td>
+      <td class="time">{{ formatTime(track.duration) }}</td>
+    </tr>
+  </table>
+</div>

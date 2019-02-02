@@ -1,6 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+/* Fonts */
 
 @import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative:700|Comfortaa:700|Fredericka+the+Great');
+
 
 /* Common props for html and body */
 html {
@@ -14,6 +15,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 
 /* Theme variables */
 :root {
@@ -38,3 +40,19 @@ b[green] {
 b[red] {
   color: var(--google-red);
 }
+
+
+/* System messages colors */
+
+.loading {
+  color: #ccc;
+}
+
+.no-results {
+  color: var(--google-yellow);
+}
+
+.error {
+  color: var(--google-red);
+}
+

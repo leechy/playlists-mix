@@ -22,7 +22,7 @@
   <!-- Results -->
   <ol>
     <li *ngFor="let result of results">
-      <h3>
+      <h3 (click)="togglePlaylist(result.id)">
         <span class="title">{{ result.name }}</span>
         <span class="date">{{ result.creationdate | date:'longDate' }}</span>
       </h3>
@@ -30,6 +30,10 @@
         <span class="url">{{ result.shorturl }}</span>
         {{ result.user_name ? ' &middot; ' + result.user_name : '' }}
       </p>
+      <app-tracks-list
+        [state]="playlistsState[result.id]"
+        (retry)="showPlaylist(result.id)"
+      ></app-tracks-list>
     </li>
   </ol>
 </div>
