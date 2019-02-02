@@ -1,0 +1,14 @@
+<h1 class="type-{{ headingType }}" (mousedown)="pickRandomType($event, 3)">
+  <span class="blue">M</span>
+  <span class="red">o</span>
+  <span class="yellow">o</span>
+  <span class="blue">z</span>
+  <span class="green">l</span>
+  <span class="red">e</span>
+</h1>
+
+<form #form (submit)="search($event, form)">
+  <input type="text" name="t" autocomplete="off">
+  <button type="submit">Search</button>
+  <button type="button" (click)="luckySearch($event, form)">I'm feeling lucky</button>
+</form>

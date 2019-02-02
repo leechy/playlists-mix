@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative:700|Comfortaa:700|Fredericka+the+Great');
+
+/* Common props for html and body */
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Theme variables */
+:root {
+  --google-blue: #4285f4;
+  --google-red: #ea4335;
+  --google-yellow: #fbbc05;
+  --google-green: #34a853;
+}
