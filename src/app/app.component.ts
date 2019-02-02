@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PlaylistsService } from './core/playlists.service';
+import { PlaylistsService } from '@core/playlists.service';
 
 @Component({
   selector: 'app-root',

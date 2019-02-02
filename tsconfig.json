@@ -17,6 +17,11 @@
       "dom"
     ],
     "module": "es2015",
-    "baseUrl": "./"
+    "baseUrl": "src/",
+    "paths": {
+      "@env/*": ["environments/*", ],
+      "@assets/*": ["assets/*"],
+      "@core/*": ["app/core/*"]
+    }
   }
 }
