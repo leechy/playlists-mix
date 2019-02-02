@@ -11,9 +11,5 @@ export class AppComponent implements OnInit {
 
   constructor(private playlistsService: PlaylistsService) {}
 
-  ngOnInit() {
-    this.playlistsService.search('and').subscribe(data => {
-      console.log('searchPlaylists', data);
-    });
-  }
+  ngOnInit() {}
 }

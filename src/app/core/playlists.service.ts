@@ -11,6 +11,6 @@ export class PlaylistsService {
   constructor(private http: HttpClient) {}
 
   search(namesearch: string) {
-    return this.http.get(this.baseURL, { params: { namesearch } });
+    return this.http.get(this.baseURL, { params: { namesearch, fullcount: 'true' } });
   }
 }

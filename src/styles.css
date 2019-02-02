@@ -22,3 +22,19 @@ body {
   --google-yellow: #fbbc05;
   --google-green: #34a853;
 }
+
+b[blue] {
+  color: var(--google-blue);
+}
+
+b[yellow] {
+  color: var(--google-yellow);
+}
+
+b[green] {
+  color: var(--google-green);
+}
+
+b[red] {
+  color: var(--google-red);
+}
