@@ -1,0 +1,105 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+
+/* * * * * * * */
+/*   Header    */
+/* * * * * * * */
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.9);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+h1 {
+  width: 140px;
+  text-align: center;
+  font: 24px/28px 'Fredericka the Great', cursive;
+  cursor: pointer;
+}
+
+form {
+  flex: 1;
+  padding: 0 16px 0 0;
+}
+
+input {
+  width: calc(100% - 30px);
+  padding: 10px 15px;
+  margin: 0;
+  border: none;
+  font: 16px/18px sans-serif;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+
+/* * * * * * * */
+/*   Results   */
+/* * * * * * * */
+
+.results {
+	flex: 1;
+	overflow: auto;
+  padding: 85px 32px 32px 155px;
+
+  // shadow of the header
+  background:
+    linear-gradient(#fff 70px,  rgba(255, 255, 255, 0) 85px),
+    linear-gradient(#fff 60px, rgba(0, 0, 0, 0.2) 60px, rgba(0, 0, 0, 0) 64px);
+	background-repeat: no-repeat;
+	background-color: white;
+  background-attachment: local, fixed;
+}
+
+ol {
+  margin: 0;
+  padding: 0;
+  font: 14px/16px sans-serif;
+
+  h3 {
+    margin: 0;
+    font-weight: 500;
+    cursor: pointer;
+
+    .title {
+      font-size: 22px;
+      color: var(--google-blue);
+      text-decoration: underline;
+    }
+
+    .date {
+      margin-left: 1em;
+      font-size: 10px;
+      opacity: 0.8;
+    }
+  }
+
+  li {
+    margin: 0 0 1.4rem 0;
+  }
+
+  p {
+    margin: 6px 0;
+  }
+
+  .url {
+    color: var(--google-green);
+  }
+}

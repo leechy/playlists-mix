@@ -1,0 +1,35 @@
+<div class="header">
+  <h1 (click)="backToHome($event, 3)">
+    <b blue>M</b><b red>o</b><b yellow>o</b><b blue>z</b><b green>l</b><b red>e</b>
+  </h1>
+  <form #form (submit)="search($event, form)">
+    <input type="text" name="t" [value]="t" autocomplete="off">
+  </form>
+</div>
+<div class="results">
+
+  <!-- Errors -->
+  <div class="error" *ngIf="headers.status === 'failed'">
+    {{ headers.error_message }}
+  </div>
+
+  <!-- No results -->
+  <div class="no-results" *ngIf="headers.status === 'success' && !headers.results_count">
+    Unfortunatelly, we didn't found any playlists with “{{ t }}”.<br />
+    Please change the request and good luck!
+  </div>
+
+  <!-- Results -->
+  <ol>
+    <li *ngFor="let result of results">
+      <h3>
+        <span class="title">{{ result.name }}</span>
+        <span class="date">{{ result.creationdate | date:'longDate' }}</span>
+      </h3>
+      <p>
+        <span class="url">{{ result.shorturl }}</span>
+        {{ result.user_name ? ' &middot; ' + result.user_name : '' }}
+      </p>
+    </li>
+  </ol>
+</div>
