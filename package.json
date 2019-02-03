@@ -26,6 +26,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.14",
     "@fortawesome/free-solid-svg-icons": "^5.7.1",
     "core-js": "^2.4.1",
+    "howler": "^2.1.1",
     "module-alias": "^2.1.0",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.0.0-rc.0",
