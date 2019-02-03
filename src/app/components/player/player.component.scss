@@ -1,0 +1,73 @@
+:host {
+  padding: 16px;
+}
+
+.player {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.player-button {
+  display: inline-block;
+  margin: 0 4px;
+  width: 42px;
+  height: 42px;
+  font-size: 24px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  background: var(--google-blue);
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.player-button--play {
+  width: 66px;
+  height: 66px;
+  font-size: 33px;
+  line-height: 70px;
+  background: var(--google-green);
+
+  fa-icon {
+    margin-left: 6px;
+  }
+}
+
+.player-button--backward fa-icon {
+  margin-right: 3px;
+}
+
+.player-button--forward fa-icon {
+  margin-left: 2px;
+}
+
+.player-volume {
+  margin: 16px;
+}
+
+.player-song--name {
+  font: 24px/26px sans-serif;
+}
+
+.player-song--artist {
+  font: 14px sans-serif;
+  color: #999;
+}
+
+.player-image {
+  flex: 1;
+  text-align: right;
+
+  img {
+    vertical-align: middle;
+    width: 66px;
+    height: 66px;
+  }
+}
