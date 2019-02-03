@@ -1,0 +1,61 @@
+.tracks {
+  width: calc(100% + 42px);
+  margin: 0 0 0 -42px;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.image {
+  position: relative;
+  width: 32px;
+  color: #fff;
+  border: 2px solid;
+  background: #000;
+
+  img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+
+  fa-icon {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  &.playing img {
+    opacity: 0.5;
+  }
+  &.playing fa-icon.playing {
+    display: block;
+    top: 9px;
+    left: 8px;
+    font-size: 18px;
+  }
+}
+
+.track:hover {
+  .image:not(.playing) {
+    img {
+      opacity: 0.5;
+    }
+
+    fa-icon.play {
+      display: block;
+      top: 9px;
+      left: 12px;
+    }
+  }
+}
+
+.song {
+  width: 55%;
+  padding-left: 4px;
+}
+
+.time {
+  width: 60px;
+  text-align: right;
+}

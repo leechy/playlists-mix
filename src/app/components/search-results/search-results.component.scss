@@ -12,6 +12,7 @@
 
 .header {
   position: fixed;
+  z-index: 3;
   top: 0;
   right: 20px;
   left: 0;
@@ -90,7 +91,7 @@ ol {
     .date {
       margin-left: 1em;
       font-size: 10px;
-      opacity: 0.8;
+      color: #666;
     }
   }
 

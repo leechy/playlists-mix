@@ -14,7 +14,16 @@
   <!-- tracks -->
   <table class="tracks" *ngIf="!state.loading && state.data">
     <tr class="track" *ngFor="let track of state.data.tracks">
-      <td class="image"><img [src]="track.image" width="32" height="32"></td>
+      <td class="image"
+        (click)="play(state.data.id, track.id)"
+        [ngClass]="{
+          'playing': playingTrackId === track.id
+        }"
+      >
+        <img [src]="track.image">
+        <fa-icon [icon]="faPlay" class="play"></fa-icon>
+        <fa-icon [icon]="faVolumeUp" class="playing"></fa-icon>
+      </td>
       <td class="song">{{ track.name }}</td>
       <td class="artist">{{ track.artist_name }}</td>
       <td class="time">{{ formatTime(track.duration) }}</td>

@@ -1,18 +1,43 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { PlaylistsService } from '@core/playlists.service';
+import { Subscription } from 'rxjs';
+import { faPlay, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-tracks-list',
   templateUrl: './tracks-list.component.html',
-  styleUrls: ['./tracks-list.component.css']
+  styleUrls: ['./tracks-list.component.scss']
 })
-export class TracksListComponent implements OnInit {
+export class TracksListComponent implements OnInit, OnDestroy {
   @Input() state;
   @Output() retry = new EventEmitter();
 
-  constructor() {}
+  // font awesome icons used
+  faPlay = faPlay;
+  faVolumeUp = faVolumeUp;
 
-  ngOnInit() {}
+  // current track id
+  trackSubscription: Subscription;
+  playingTrackId: string;
 
+  constructor(private playlistService: PlaylistsService) {}
+
+  ngOnInit() {
+    this.trackSubscription = this.playlistService.currentTrack.subscribe(trackId => {
+      this.playingTrackId = trackId;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.trackSubscription) {
+      this.trackSubscription.unsubscribe();
+    }
+  }
+
+  /**
+   * Sends event to the parent component
+   * to try to reload playlist data
+   */
   onRetry() {
     this.retry.emit(null);
   }
@@ -33,5 +58,16 @@ export class TracksListComponent implements OnInit {
     } else {
       return '00:00';
     }
+  }
+
+  /**
+   * Sets playlist and song to be played by the player
+   * (through playlistService for now)
+   *
+   * @param playlistId  playlist id (can be taken from state...)
+   * @param trackId     id of the clicked track
+   */
+  play(playlistId: string, trackId: string) {
+    this.playlistService.setCurrentPlaylist(playlistId, trackId);
   }
 }

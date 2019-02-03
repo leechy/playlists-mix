@@ -12,6 +12,11 @@ export class PlaylistsService {
   // storage for the already loaded playlists
   public data = new BehaviorSubject({});
 
+  // player data (can be stored elsewhere)
+  private currentPlaylistId: string;
+  public currentPlaylist = new BehaviorSubject([]);
+  public currentTrack = new BehaviorSubject('0');
+
   constructor(private http: HttpClient) {}
 
   /**
@@ -49,5 +54,37 @@ export class PlaylistsService {
         });
       });
     }
+  }
+
+  /**
+   * Updates currentTrack and currentPlaylist subjects
+   * so the player can listen and update itself with the new data
+   *
+   * @param {string} id       id of the chosen for playing playlist
+   * @param {string} trackId  id of the chosen song
+   */
+  setCurrentPlaylist(id, trackId = '0') {
+    if (this.currentTrack.value !== trackId) {
+      this.currentTrack.next(trackId);
+    }
+    if (
+      this.currentPlaylistId !== id &&
+      this.data.value[id] &&
+      this.data.value[id].data &&
+      this.data.value[id].data.tracks &&
+      this.data.value[id].data.tracks.length
+    ) {
+      this.currentPlaylist.next(this.data.value[id]);
+      this.currentPlaylistId = id;
+    }
+  }
+
+  /**
+   * Updates currently playing track
+   *
+   * @param {string} trackId  id of the chosen song
+   */
+  setCurrentTrack(trackId = '0') {
+    this.currentTrack.next(trackId);
   }
 }

@@ -1,24 +1,30 @@
-<div class="player">
-  <div class="player-button player-button--backward">
+<div class="player" [ngClass]="{ 'visible': playlist }">
+  <div class="player-button player-button--backward" (click)="skip('prev')">
     <fa-icon [icon]="faBackward"></fa-icon>
   </div>
-  <div class="player-button player-button--play">
+
+  <div *ngIf="state === 'paused'" class="player-button player-button--play" (click)="play()">
     <fa-icon [icon]="faPlay"></fa-icon>
   </div>
-  <div class="player-button player-button--forward">
+
+  <div *ngIf="state === 'playing'" class="player-button player-button--pause" (click)="pause()">
+    <fa-icon [icon]="faPause"></fa-icon>
+  </div>
+
+  <div class="player-button player-button--forward" (click)="skip('next')">
     <fa-icon [icon]="faForward"></fa-icon>
   </div>
 
   <div class="player-volume">
-    <input type="range" name="volume" min="0" max="100" value="75" />
+    <input type="range" name="volume" min="0" max="100" value="75" (input)="changeVolume($event)">
   </div>
 
   <div class="player-song">
-    <div class="player-song--name">Melancholic Melody</div>
-    <div class="player-song--artist">Nate Maingard</div>
+    <div class="player-song--name">{{ trackInfo.name }}</div>
+    <div class="player-song--artist">{{ trackInfo.artist }}</div>
   </div>
 
-  <div class="player-image">
-    <img src="https://imgjam1.jamendo.com/albums/s27/27454/covers/1.200.jpg">
+  <div class="player-image" *ngIf="trackInfo.image && trackInfo.image !== ''">
+    <img [src]="trackInfo.image">
   </div>
 </div>

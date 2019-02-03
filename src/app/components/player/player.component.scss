@@ -6,16 +6,21 @@
 }
 
 .player {
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 
   margin: 16px;
+
+  &.visible {
+    display: flex;
+  }
 }
 
 .player-button {
   display: inline-block;
+  flex-shrink: 0;
   margin: 0 4px;
   width: 42px;
   height: 42px;
@@ -43,6 +48,14 @@
   fa-icon {
     margin-left: 6px;
   }
+}
+
+.player-button--pause {
+  width: 66px;
+  height: 66px;
+  font-size: 33px;
+  line-height: 70px;
+  background: var(--google-red);
 }
 
 .player-button--backward fa-icon {

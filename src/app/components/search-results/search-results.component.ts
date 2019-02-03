@@ -21,6 +21,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   // results
   headers = {};
   results = [];
+
   // state of the playlists (opened, loading, tracks, etc)
   // something we can put in the store in the future
   playlistsState = {};
@@ -53,7 +54,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
               headers: playlists[key].headers,
               data: playlists[key].data
             };
-            console.log('playlist', key, playlists[key]);
           }
         });
     });
@@ -91,7 +91,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
    */
   getResults() {
     const searchSubscription = this.playlistsService.search(this.t).subscribe(data => {
-      console.log('searchPlaylists', data);
       this.headers = data['headers'];
       this.results = data['results'];
       searchSubscription.unsubscribe();
@@ -103,28 +102,44 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     });
   }
 
-  showPlaylist(id) {
+  /**
+   * Opens the list of tracks for the playlist
+   *
+   * @param {string} id  playlist id to show
+   */
+  showPlaylist(id: string) {
     let loading = false;
+    // loads playlist data from the server
     if (!this.playlistsState[id] || !this.playlistsState[id].data) {
       this.playlistsService.getTracks(id);
       loading = true;
     }
+    // update the state as opened
     this.playlistsState[id] = {
       ...this.playlistsState[id],
       opened: true,
       loading
     };
-    // console.log('getPlaylist', id, data);
   }
 
-  hidePlaylist(id) {
+  /**
+   * Closes the list of tracks for the playlist
+   *
+   * @param {string} id  playlist id to hide
+   */
+  hidePlaylist(id: string) {
     this.playlistsState[id] = {
       ...this.playlistsState[id],
       opened: false
     };
   }
 
-  togglePlaylist(id) {
+  /**
+   * Toggles playlist tracks visibility
+   *
+   * @param {string} id  playlist id
+   */
+  togglePlaylist(id: string) {
     if (this.playlistsState[id] && this.playlistsState[id].opened) {
       this.hidePlaylist(id);
     } else {
