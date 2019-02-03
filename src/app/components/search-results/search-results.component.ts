@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlaylistsService } from '@core/playlists.service';
 import { Subscription } from 'rxjs';
-import { truncate } from 'fs';
 
 @Component({
   selector: 'app-search-results',
@@ -19,7 +18,11 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   playlistsDataSubscription: Subscription;
 
   // results
-  headers = {};
+  headers: {
+    status?: string;
+    error_message?: string;
+    results_count?: number;
+  } = {};
   results = [];
 
   // state of the playlists (opened, loading, tracks, etc)

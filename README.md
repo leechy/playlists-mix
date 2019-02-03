@@ -1,6 +1,10 @@
-# PlaylistsMix
+# Moozle
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.
+
+## Demo
+
+[Moozle](https://www.leechy.ru/moozle/)
 
 ## Development server
 
